@@ -6,7 +6,7 @@ const usersController = {
     return usersModel
       .get(req.query)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         // condition is not working
         if (result != undefined) {
           return formResponse(200, result, "Get all data users success", res);
@@ -93,7 +93,7 @@ const usersController = {
     return usersModel
       .updateByPatch(request)
       .then((result) => {
-        console.log(result.id);
+        // console.log(result.id);
         // if (result != null) {
         if (result != undefined) {
           return formResponse(

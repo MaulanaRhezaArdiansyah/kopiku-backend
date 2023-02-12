@@ -10,13 +10,18 @@ router.get("/", productController.get);
 router.get("/:id", productController.getDetail);
 router.post(
   "/",
-  verifyToken,
+  // verifyToken,
   // formUpload.single("image"),
   formUpload.array("image"),
   productController.add
 );
 // router.put("/:id", productController.updateByPut);
-router.patch("/:id", verifyToken, productController.updateByPatch);
+router.patch(
+  "/:id",
+  // verifyToken,
+  formUpload.array("image"),
+  productController.updateByPatch
+);
 router.delete("/:id", verifyToken, productController.remove);
 
 module.exports = router;

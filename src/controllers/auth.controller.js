@@ -30,15 +30,25 @@ const authController = {
         // return formResponse(200, result, 'success',res)
         // Token
         jwt.sign(
-          { user_id: result.user_id, role: result.role },
+          // { user_id: result.user_id, role: result.role },
+          { id: result.id, role: result.role },
           JWT_PRIVATE_KEY,
           { expiresIn: "2 days" },
           (err, tokenResult) => {
+            // console.log(result);
             return res.status(200).send({
               message: "Login success!",
               data: {
                 token: tokenResult,
-                user: result,
+                user: {
+                  // user_id: result.user_id,
+                  id: result.id,
+                  email: result.email,
+                  role: result.role,
+                  image: result.image,
+                  // displayname: result.displayname,
+                  username: result.username,
+                },
               },
             });
           }
@@ -67,6 +77,8 @@ const authController = {
         return res
           .status(400)
           .send({ message: "Email must be filled by @gmail.com format!" });
+      } else if (req.body.password.length == 0) {
+        return res.status(400).send({ message: "Password must be filled!" });
       } else if (req.body.phone.length == 0) {
         return res
           .status(400)

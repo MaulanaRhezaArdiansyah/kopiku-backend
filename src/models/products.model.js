@@ -2,24 +2,40 @@ const db = require("../helpers/db-connection");
 const { v4: uuidv4 } = require("uuid");
 
 const productModel = {
-  query: (queryParams, sortType = "ASC", limit = 10, page = 1) => {
-    const { title, cat } = queryParams;
+  // query: (queryParams, sortType = "ASC", limit = 10, page = 1) => {
+  //   const { title, cat } = queryParams;
+  //   if (title && cat) {
+  //     return `WHERE title ILIKE '%${title}%' AND category ILIKE '%${cat}%' ORDER BY title ${sortType} LIMIT ${limit}`;
+  //   } else if (title || cat) {
+  //     return `WHERE title ILIKE '%${title}%' OR category ILIKE '%${cat}%' ORDER BY title ${sortType} LIMIT ${limit} `;
+  //   } else {
+  //     // return `ORDER BY CAST (price AS FLOAT) ${sortType} LIMIT ${limit} OFFSET ${
+  //     //   (page - 1) * limit
+  //     // }`;
+  //     return `ORDER BY title ${sortType} LIMIT ${limit} OFFSET ${
+  //       (page - 1) * limit
+  //     }`;
+  //   }
+  // },
+  query: (queryParamss, sortType = "ASC") => {
+    const { title, cat } = queryParamss;
     if (title && cat) {
-      return `WHERE title ILIKE '%${title}%' AND category ILIKE '%${cat}%' ORDER BY title ${sortType} LIMIT ${limit}`;
+      return `WHERE title ILIKE '%${title}%' AND category ILIKE '%${cat}%' ORDER BY title ${sortType} `;
     } else if (title || cat) {
-      return `WHERE title ILIKE '%${title}%' OR category ILIKE '%${cat}%' ORDER BY title ${sortType} LIMIT ${limit} `;
-    } else {
-      // return `ORDER BY CAST (price AS FLOAT) ${sortType} LIMIT ${limit} OFFSET ${
-      //   (page - 1) * limit
-      // }`;
-      return `ORDER BY title ${sortType} LIMIT ${limit} OFFSET ${
-        (page - 1) * limit
-      }`;
+      return `WHERE title ILIKE '%${title}%' OR category ILIKE '%${cat}%' ORDER BY title ${sortType}  `;
     }
   },
-  // get: function (queryParams) {
+
   get: (queryParams) => {
     // array / multiple image upload
+    const {
+      page = 1,
+      limit = 12,
+      sortType = "asc",
+      search = "",
+      cat = "",
+    } = queryParams;
+    // console.log(queryParams);
     return new Promise((resolve, reject) => {
       db.query(
         // `SELECT products.id, products.title, products.price, products.image, products.category, products.description, product_images.product_id, product_images.name, product_images.filename FROM products INNER JOIN product_images ON products.id = product_images.product_id
@@ -39,19 +55,23 @@ const productModel = {
         // )}`,
         // using aliases and not all the data in product_images will display
         `SELECT
-          pr.id, pr.title, pr.price, pr.category, pr.description,
-          json_agg(row_to_json(prim)) images
-         FROM products AS pr
-         INNER JOIN (SELECT product_id, name, filename FROM product_images) AS prim 
-         ON pr.id = prim.product_id
-         GROUP BY pr.id
-        ${productModel.query(
-          // `SELECT * FROM products ${this.query(
-          queryParams,
-          queryParams.sortBy,
-          queryParams.limit,
-          queryParams.page
-        )}`,
+        pr.id, pr.title, pr.price, pr.image, pr.category, pr.description,
+        json_agg(row_to_json(prim)) images
+        FROM products AS pr
+        INNER JOIN (SELECT product_id, name, filename FROM product_images) AS prim 
+        ON pr.id = prim.product_id
+        ${search ? `AND title ILIKE '%${search}%'` : ""}
+        ${cat ? `AND category ILIKE '%${cat}%' ` : ""}
+         GROUP BY pr.id 
+         ORDER BY title ASC
+        LIMIT ${limit} OFFSET ${(page - 1) * limit}
+         `,
+        //  ${productModel.query(
+        //    queryParams,
+        //    queryParams.sortBy,
+        //    queryParams.limit,
+        //    queryParams.page
+        //  )}
         // `SELECT * FROM products`,
         (error, result) => {
           // console.log(result.rows);
@@ -108,17 +128,76 @@ const productModel = {
     // });
   },
 
+  // getDetail: (id) => {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(
+  //       `SELECT
+  //     pr.image,
+  //     json_agg(row_to_json(prim)) images
+  //    FROM products AS pr
+  //    INNER JOIN (SELECT filename FROM product_images) AS prim
+  //    ON pr.id = prim.product_id
+  //    GROUP BY pr.id`,
+  //       (error, result) => {
+  //         if (error) {
+  //           return reject(error.message);
+  //         } else {
+  //           // console.log(result.rows);
+  //           return resolve(result.rows);
+  //         }
+  //       }
+  //     );
+  //   });
+  // },
+  // getDetail: (id) => {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(
+  //       `SELECT * FROM products WHERE id = '${id}' UNION SELECT * FROM product_images WHERE product_id = '${id}'`,
+  //       (error, result) => {
+  //         if (error) {
+  //           return reject(error.message);
+  //         } else {
+  //           return resolve(result.rows[0]);
+  //         }
+  //       }
+  //     );
+  //   });
+  // },
   getDetail: (id) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM products WHERE id = '${id}'`, (error, result) => {
-        if (error) {
-          return reject(error.message);
-        } else {
-          return resolve(result.rows[0]);
+      db.query(
+        `
+      SELECT
+      pr.id, pr.title, pr.price, pr.image, pr.category, pr.description,
+      json_agg(row_to_json(prim)) images
+      FROM products AS pr
+      INNER JOIN (SELECT product_id, name, filename FROM product_images) AS prim 
+      ON pr.id = prim.product_id
+      WHERE pr.id = '${id}'
+      GROUP BY pr.id 
+     `,
+        (error, result) => {
+          if (error) {
+            return reject(error.message);
+          } else {
+            return resolve(result.rows[0]);
+          }
         }
-      });
+      );
     });
   },
+
+  // getDetail: (id) => {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(`SELECT * FROM products WHERE id = '${id}'`, (error, result) => {
+  //       if (error) {
+  //         return reject(error.message);
+  //       } else {
+  //         return resolve(result.rows[0]);
+  //       }
+  //     });
+  //   });
+  // },
 
   // CARA 1 for upload file and result.rows is undefined and more risk, tidak perlu dipake dulu
   // add: ({ title, image, price, category, description, file }) => {
@@ -247,34 +326,61 @@ const productModel = {
   //   });
   // },
 
-  updateByPatch: ({ id, title, image, price, category, description }) => {
+  updateByPatch: ({ id, title, image, price, category, description, file }) => {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM products WHERE id = '${id}'`, (error, result) => {
         if (error) {
           return reject(error.message);
         } else {
           db.query(
-            `UPDATE products SET title='${
-              title || result.rows[0].title
-            }', image='${image || result.rows[0].image}',price='${
-              price || result.rows[0].price
-            }', category='${
-              category || result.rows[0].category
-            }', description = '${
-              description || result.rows[0].description
-            }' WHERE product_id='${id}'`,
+            `UPDATE products 
+             SET title='${title || result.rows[0].title}', 
+             image='${image || result.rows[0].image}',
+             price='${price || result.rows[0].price}', 
+             category='${category || result.rows[0].category}',
+             description = '${description || result.rows[0].description}'
+             WHERE id='${id}'`,
             (error) => {
               if (error) {
                 return reject(error.message);
               } else {
-                return resolve({
-                  id,
-                  title,
-                  image,
-                  price,
-                  category,
-                  description,
-                });
+                if (file.length == 0) {
+                  return resolve({ id, title, price, category, description });
+                }
+                db.query(
+                  `SELECT image_id, filename, name FROM product_images WHERE product_id = '${id}'`,
+                  (errorProductImages, productImages) => {
+                    if (errorProductImages) {
+                      return reject({ message: errorProductImages.message });
+                    }
+                    for (let iNew = 0; iNew < file.length; iNew++) {
+                      db.query(
+                        `UPDATE product_images SET filename = $1, name = $2 WHERE image_id = $3`,
+                        [
+                          file[iNew].filename,
+                          title,
+                          productImages.rows[iNew].image_id,
+                        ],
+                        (error, result) => {
+                          if (error) {
+                            return reject({
+                              message: "Failed to update product",
+                            });
+                          }
+                          return resolve({
+                            id,
+                            title,
+                            price,
+                            category,
+                            description,
+                            oldImages: productImages.rows,
+                            images: file,
+                          });
+                        }
+                      );
+                    }
+                  }
+                );
               }
             }
           );

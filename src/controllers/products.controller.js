@@ -25,6 +25,33 @@ const productController = {
       });
   },
 
+  // getDetail: (req, res) => {
+  //   // const id = req.params.id;
+  //   const request = {
+  //     ...req.body,
+  //     id: req.params.id,
+  //     file: req.files,
+  //   };
+  //   return productModel
+  //     .getDetail(request)
+  //     .then((result) => {
+  //       if (result != undefined) {
+  //         // if (result != null) {
+  //         return formResponse(
+  //           200,
+  //           result,
+  //           "Get data product by id success",
+  //           res
+  //         );
+  //       } else {
+  //         return formResponse(400, { result }, "Products id not found", res);
+  //       }
+  //     })
+  //     .catch((error, result) => {
+  //       return formResponse(500, { result }, error, res);
+  //     });
+  // },
+
   getDetail: (req, res) => {
     const id = req.params.id;
     return productModel
@@ -51,6 +78,7 @@ const productController = {
     // console.log(req.file); // check if single
     // console.log(req.files); // chech if multiple or array
     // console.log(request);
+    // console.log(req.body);
     if (
       req.body.title == undefined ||
       // req.body.image == undefined ||
@@ -93,6 +121,13 @@ const productController = {
       // if (request.file.size > 1048576 * 2) {
       //   return res.status(400).send({ message: "File too large!" });
       // }
+      // sementara errorin aja kalo admin ga masukin image pas add product biar di database postgre ga bertambah
+      // console.log(request.file.length);
+      if (request.file.length === 0) {
+        return res
+          .status(400)
+          .send({ message: "Image must be exist when adding product!" });
+      }
       return productModel
         .add(request)
         .then((result) => {
@@ -132,22 +167,48 @@ const productController = {
     const request = {
       ...req.body,
       id: req.params.id,
+      file: req.files,
     };
-    // console.log(request.id);
+    // if (request.file.length == 0) {
+    //   return res
+    //     .status(200)
+    //     .send({ message: "success edit data without upload image" });
+    // }
+    // sementara error handling ini untuk mengantisipasi uplaod file image yang melebihi database uploaded sebelumnya
+    if (request.file.length > 2) {
+      return res.status(400).send({ message: "fitur ini belum tersedia" });
+      // console.log("lebih dari 2 coy");
+    }
     return productModel
       .updateByPatch(request)
       .then((result) => {
-        if (result != null) {
-          // if (result.id == request.id) {
-          return formResponse(
-            200,
-            result,
-            "Updating data product by id success",
-            res
-          );
-        } else {
-          return formResponse(400, { result }, "Products id not found", res);
+        // console.log(result);
+        if (result.images == undefined) {
+          return res.status(200).send({
+            data: result,
+            message: "Success update data product without upload image!",
+          });
         }
+        // if (result.length == 0) {
+        //   return res.status(400).send({ message: "Product not found!" });
+        // }
+        for (let i = 0; i < result.oldImages.length; i++) {
+          unlink(
+            `public/uploads/images/${result.oldImages[i].filename}`,
+            (err) => {
+              // if (err) throw err;
+              // if (err) return err;
+              // if (err) console.log("cuyy");
+              // console.log("successfully deleted /tmp/hello");
+              console.log(
+                `successfully deleted ${result.oldImages[i].filename}`
+              );
+            }
+          );
+        }
+        return res
+          .status(200)
+          .send({ message: "success update", data: result });
       })
       .catch((error, result) => {
         return formResponse(500, { result }, error, res);
@@ -160,10 +221,13 @@ const productController = {
     return productModel
       .remove(id)
       .then((result) => {
-        // console.log(result[0].filename);
+        if (result.length == 0) {
+          return res.status(400).send({ message: "Product not found!" });
+        } // if id wrong
         for (let i = 0; i < result.length; i++) {
           unlink(`public/uploads/images/${result[i].filename}`, (err) => {
-            if (err) throw err;
+            // if (err) throw err;
+            if (err) return err;
             // console.log("successfully deleted /tmp/hello");
             console.log(`successfully deleted ${result[i].filename}`);
           });

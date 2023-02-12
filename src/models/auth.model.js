@@ -21,6 +21,7 @@ const authModel = {
             if (result.rows.length == 0) {
               return reject("Wrong email/password");
             } else {
+              // console.log(result.rows[0].role);
               // jika email tidak kosong, maka cek password
               // 3 param dengan menggunakan bcrypt.compare()
               // 1. password inputan user, 2. hashing password yang tersimpan, 3. callback
@@ -51,15 +52,14 @@ const authModel = {
       db.query(
         // `INSERT INTO users (user_id, email, password, phone, role) VALUES ($1, $2, $3, $4, $5)`,
         // [uuidv4(), email, password, phone, role],
-        `INSERT INTO users (user_id, email, password, phone) VALUES ($1, $2, $3, $4 )`,
+        `INSERT INTO users (id, email, password, phone) VALUES ($1, $2, $3, $4 )`,
         [uuidv4(), email, password, phone],
         // (error, result) => {
         (error) => {
           if (error) {
             return reject(error.message);
           } else {
-            // if()
-            return resolve("SUCCESS");
+            return resolve("Register success!");
           }
         }
       );

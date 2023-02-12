@@ -9,6 +9,7 @@ const verifyToken = (req, res, next) => {
   } else {
     jwt.verify(token, JWT_PRIVATE_KEY, (error, decoded) => {
       // console.log(decoded);
+      // console.log(error);
       if (!error) {
         // this is authorization broo
 

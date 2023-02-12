@@ -1,4 +1,3 @@
-# week-6-edit
-INI ADALAH TUGAS SAYA WEEK 6 - BACKEND FOR COFFEE SHOP
+This is backend for Kopiku App.
 
 ENJOY MY CODE, GUYS!!

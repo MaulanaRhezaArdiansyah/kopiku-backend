@@ -1,7 +1,7 @@
 const formResponse = require("../helpers/form-response");
 const usersModel = require("../models/users.model");
 const { unlink } = require("node:fs");
-// const { request } = require("../routes");
+// const path = require("path");
 
 const usersController = {
   get: (req, res) => {
@@ -100,41 +100,45 @@ const usersController = {
     const request = {
       ...req.body,
       id: req.params.id,
-      file: req.files,
+      file: req.file,
     };
-    // console.log(request);
-    // if (request.file.length == 0) {
-    // if (request.file == undefined) {
-    //   return res
-    //     .status(200)
-    //     .send({ message: "success edit data without upload avatar" });
-    // }
+    // let extFile = path.extname(request.file.originalname);
+    // if (
+    //   extFile !== ".jpg" &&
+    //   extFile !== ".jpeg" &&
+    //   extFile !== ".webp" &&
+    //   extFile !== ".png"
+    // )
+    //   return formResponse(
+    //     400,
+    //     request.file.filename,
+    //     `Ooops, avatar upload should be an image format!`,
+    //     res
+    //   );
+    console.log(request);
     return usersModel
       .updateByPatch(request)
       .then((result) => {
-        // console.log(result.id);
-        // if (result != null) {
-        // unlink(`public/uploads/images/${result.oldAvatar.filename}`, (err) => {
-        //   // if (err) throw err;
-        //   // if (err) return err;
-        //   // if (err) console.log("cuyy");
-        //   // console.log("successfully deleted /tmp/hello");
-        //   console.log(`successfully deleted ${result.oldAvatar.filename}`);
-        // });
-        if (result != undefined) {
+        if (request.file == undefined) {
           return formResponse(
             200,
             result,
-            "Updating data users by id success",
+            `Successfully edit without upload avatar! 🥳`,
             res
           );
-        } else {
-          return formResponse(400, { result }, "Users id not found", res);
         }
+        unlink(`public/uploads/images/${result.oldAvatar}`, () => {
+          console.log(`Successfully deleted ${result.oldAvatar}`);
+        });
+        return formResponse(
+          200,
+          result,
+          "Successfully edit profile with upload avatar! 🥳",
+          res
+        );
       })
       .catch((error, result) => {
         return formResponse(500, { result }, error, res);
-        // return res.status(500).send({ message: error });
       });
   },
 

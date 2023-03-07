@@ -64,6 +64,7 @@ const authController = {
     // if register form was error
     if (
       req.body.email == undefined ||
+      req.body.username == undefined ||
       req.body.password == undefined ||
       req.body.phone == undefined
     ) {
@@ -79,6 +80,8 @@ const authController = {
           .send({ message: "Email must be filled by @gmail.com format!" });
       } else if (req.body.password.length == 0) {
         return res.status(400).send({ message: "Password must be filled!" });
+      } else if (req.body.username.length == 0) {
+        return res.status(400).send({ message: "Username must be filled!" });
       } else if (req.body.phone.length == 0) {
         return res
           .status(400)
@@ -104,9 +107,10 @@ const authController = {
               return authModel
                 .register(request)
                 .then((result) => {
-                  return res
-                    .status(201)
-                    .send({ message: "Register success!", data: result });
+                  return res.status(201).send({
+                    message: `Register ${result.username} is success!`,
+                    data: result,
+                  });
                 })
                 .catch((error) => {
                   return res.status(400).send({ message: error });

@@ -33,7 +33,7 @@ const formUpload = multer({
     }
   },
   limits: {
-    fileSize: 1048576 * 2, // 2mb
+    fileSize: 1048576 * 5, // 5mb
   },
 });
 

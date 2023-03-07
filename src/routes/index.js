@@ -6,6 +6,7 @@ const usersProfileRoute = require("./usersProfile.route");
 const authRoute = require("./auth.route");
 const usersRoute = require("./users.route");
 const cartRoute = require("./cart.route");
+const historyRoute = require("./history.route");
 // const verifyToken = require("../helpers/verifyToken");
 
 router.get("/", (req, res) => {
@@ -19,5 +20,6 @@ router.use("/auth", authRoute);
 router.use("/users", usersRoute);
 // router.use("/users", verifyToken, usersRoute);
 router.use("/cart", cartRoute);
+router.use("/history", historyRoute);
 
 module.exports = router;

@@ -1,3 +1,4 @@
+// const formResponse = (statusCode, result, message, res) => {
 const formResponse = (statusCode, result, message, res) => {
   // res.send
   res.status(statusCode).send({

@@ -43,12 +43,18 @@ const usersModel = {
   getDetail: (id) => {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM users WHERE id = '${id}'`, (error, result) => {
-        if (error) {
-          return reject(error.message);
-          // return reject("aaa");
-        } else {
-          return resolve(result.rows[0]);
-        }
+        if (error) return reject(error.message);
+        const dataUser = result.rows[0];
+        const userID = result.rows[0].id;
+        db.query(
+          `SELECT * FROM history WHERE user_id = '${userID}'`,
+          (errorHistory, resultHistory) => {
+            if (errorHistory) return reject(errorHistory.message);
+            const history = resultHistory.rows;
+            return resolve({ ...dataUser, history });
+          }
+        );
+        // return resolve(dataUser, );
       });
     });
   },
@@ -167,11 +173,11 @@ const usersModel = {
   updateByPatch: ({
     id,
     username,
-    firstname,
-    lastname,
+    // firstname,
+    // lastname,
+    // gender,
     email,
     image,
-    gender,
     phone,
     birthday,
     delivery_address,
@@ -183,71 +189,57 @@ const usersModel = {
         if (error) {
           return reject(error.message);
         } else {
-          // if (result.rows[0].user_id != id) {
-          // return reject("id not found");
-          // } else {
-          // console.log(result.rows[0]);
+          const dataUser = result.rows[0];
+          // gender = '${gender || "Male"}',
           db.query(
-            `UPDATE users SET username='${
-              username || result.rows[0].username
-            }', 
-                firstname='${firstname || result.rows[0].firstname}',
-                lastname='${lastname || result.rows[0].lastname}', 
-                email='${email || result.rows[0].email}',
-                image = '${image || result.rows[0].image}' ,
-                gender = '${gender || "Male"}',
-                birthday = '${birthday || result.rows[0].birthday}',
-                phone = '${phone || result.rows[0].phone}',
+            `UPDATE users SET 
+                username='${username || dataUser.username}', 
+                email='${email || dataUser.email}',
+                phone = '${phone || dataUser.phone}',
+                birthday = '${birthday || dataUser.birthday}',
                 delivery_address = '${
-                  delivery_address || result.rows[0].delivery_address
+                  delivery_address || dataUser.delivery_address
                 }'
                 WHERE id = '${id}'`,
-            (error) => {
-              if (error) {
-                return reject(error.message);
+            (errorUpdate) => {
+              if (errorUpdate) {
+                return reject(errorUpdate.message);
               } else {
-                // if (file.length == 0) {
                 if (file == undefined) {
                   return resolve({
                     id,
                     username,
-                    firstname,
-                    lastname,
                     email,
+                    // gender,
                     image,
-                    gender,
                     phone,
                     birthday,
                     delivery_address,
                   });
                 }
                 db.query(
-                  `SELECT avatar_id, filename, name FROM user_avatars WHERE user_id = '${id}'`,
+                  `SELECT image FROM users WHERE id = '${id}'`,
                   (errorAvatar, userAvatar) => {
+                    const resultImageUser = userAvatar.rows[0];
                     if (errorAvatar) {
                       return reject({ message: errorAvatar.message });
                     }
                     db.query(
-                      `UPDATE user_avatars SET filename = $1, name = $2, WHERE avatar_id = $3`,
-                      [file.filename, username, userAvatar.rows.avatar_id],
-                      (error, result) => {
-                        if (error) {
-                          return reject({
-                            message: "Failed to update user profile!",
-                          });
+                      `UPDATE users SET image = $1 WHERE id = '${id}'`,
+                      [file.filename],
+                      (errorUpdateAvatar) => {
+                        if (errorUpdateAvatar) {
+                          return reject(errorUpdateAvatar.message);
                         }
                         return resolve({
                           id,
                           username,
-                          firstname,
-                          lastname,
                           email,
-                          image,
-                          gender,
+                          // gender,
                           phone,
                           birthday,
                           delivery_address,
-                          oldAvatar: userAvatar.rows,
+                          oldAvatar: resultImageUser.image,
                           avatar: file,
                           //password
                         });
@@ -258,7 +250,6 @@ const usersModel = {
               }
             }
           );
-          // }
         }
       });
     });

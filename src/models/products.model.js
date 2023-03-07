@@ -30,7 +30,7 @@ const productModel = {
     // array / multiple image upload
     const {
       page = 1,
-      limit = 12,
+      limit = 1000,
       sortType = "asc",
       search = "",
       cat = "",

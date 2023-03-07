@@ -9,7 +9,11 @@ router.get("/", usersController.get);
 router.get("/:id", usersController.getDetail);
 // router.post("/", usersController.add);
 router.post("/", formUpload.array("avatar"), usersController.add);
-router.patch("/:id", usersController.updateByPatch);
+router.patch(
+  "/:id",
+  formUpload.single("avatar"),
+  usersController.updateByPatch
+);
 router.delete("/:id", usersController.remove);
 
 module.exports = router;

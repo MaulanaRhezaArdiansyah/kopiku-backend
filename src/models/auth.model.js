@@ -47,19 +47,24 @@ const authModel = {
     });
   },
 
-  register: ({ email, password, phone }) => {
+  register: ({ email, username, password, phone }) => {
     return new Promise((resolve, reject) => {
       db.query(
         // `INSERT INTO users (user_id, email, password, phone, role) VALUES ($1, $2, $3, $4, $5)`,
         // [uuidv4(), email, password, phone, role],
-        `INSERT INTO users (id, email, password, phone) VALUES ($1, $2, $3, $4 )`,
-        [uuidv4(), email, password, phone],
+        `INSERT INTO users (id, email, username, password, phone) VALUES ($1, $2, $3, $4, $5 )`,
+        [uuidv4(), email, username, password, phone],
         // (error, result) => {
         (error) => {
           if (error) {
             return reject(error.message);
           } else {
-            return resolve("Register success!");
+            return resolve({
+              email,
+              username,
+              password,
+              phone,
+            });
           }
         }
       );

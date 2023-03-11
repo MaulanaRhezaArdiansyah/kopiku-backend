@@ -1,7 +1,7 @@
 <br />
 <div align="center">
-  <a href="https://kopiku.cyclic.app/uploads/images/coffe-logo.webp">
-    <img src="/uploads/images/coffe-logo.webp" alt="Logo" width="80" height="80">
+  <a href="https://hellojobb.vercel.app/">
+    <img src="https://kopiku.cyclic.app/uploads/images/coffe-logo.webp" alt="Kopiku" width="80" height="80">
   </a>
 
   <h3 align="center">Kopiku Backend App</h3>

@@ -8,7 +8,6 @@ const historyController = {
     return historyModel
       .getDetail(userID)
       .then((result) => {
-        // console.log(result);
         if (result.length != 0)
           return formResponse(
             200,
@@ -16,7 +15,7 @@ const historyController = {
             `Successfully get your history!`,
             res
           );
-        // return formResponse(400, {}, `Oops.. Your history is empty!`, res);
+        return formResponse(400, {}, `Oops.. Your history is empty!`, res);
       })
       .catch((err) => {
         return formResponse(500, {}, err, res);
@@ -26,7 +25,6 @@ const historyController = {
   addHistory: (req, res) => {
     const request = {
       ...req.body,
-      // file: req.file,
       userID: req.params.userID,
     };
     return historyModel

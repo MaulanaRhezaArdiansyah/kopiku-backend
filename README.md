@@ -101,7 +101,7 @@
 <!-- CONTACT -->
 ## Contact
 
-Maulana Rheza Ardiansyah - [@rhezaardiansyahhhh](https://instagram.com/rhezaardiansyahhhh) - rhezaardiansyah222@gmail.com
+Maulana Rheza Ardiansyah - [@maulanarheza](https://www.linkedin.com/in/maulanarheza/) - [@rhezaardiansyahhhh](https://instagram.com/rhezaardiansyahhhh) - rhezaardiansyah222@gmail.com
 
 Project Link: [https://github.com/MaulanaRhezaArdiansyah/kopiku-backend](https://github.com/MaulanaRhezaArdiansyah/kopiku-backend)
 

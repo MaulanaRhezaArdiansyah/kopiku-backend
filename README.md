@@ -47,33 +47,19 @@
 
 [![Kopiku Screen Shot][product-screenshot]](https://kopikuu.vercel.app/)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Express][Express.js]][Express-url]
+* [![Supabase][Supabase]][Supabase-url]
+* [![Cyclic][Cyclic]][Cyclic-url]
+* [![Vercel][Vercel]][Vercel-url]
+* [![PostgreSQL][PostgreSQL]][PostgreSQL-url]
+* [![Postman][Postman]][Postman-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -156,3 +142,17 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 <!-- LINKS -->
 [product-screenshot]: https://kopiku.cyclic.app/uploads/images/kopiku-landing.png
+[React.js]: https://img.shields.io/badge/React.js-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Express.js]: https://img.shields.io/badge/Express.js-20232A?style=for-the-badge&logo=express&logoColor=61DAFB
+[Express-url]: https://expressjs.com/
+[Supabase]: https://img.shields.io/badge/Supabase-20232A?style=for-the-badge&logo=supabase&logoColor=61DAFB
+[Supabase-url]: https://supabase.com/
+[Cyclic]: https://img.shields.io/badge/Cyclic.sh-20232A?style=for-the-badge&logo=cyclic.sh&logoColor=61DAFB
+[Cyclic-url]: http://www.cyclic.sh/
+[Vercel]: https://img.shields.io/badge/Vercel-20232A?style=for-the-badge&logo=vercel&logoColor=61DAFB
+[Vercel-url]: https://vercel.com/
+[PostgreSQL]: https://img.shields.io/badge/PostgreSQL-20232A?style=for-the-badge&logo=postgresql&logoColor=61DAFB
+[PostgreSQL-url]: https://www.postgresql.org/
+[Postman]: https://img.shields.io/badge/Postman-20232A?style=for-the-badge&logo=postman&logoColor=61DAFB
+[Postman-url]: https://www.postman.com/

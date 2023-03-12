@@ -45,7 +45,7 @@ const usersModel = {
       db.query(`SELECT * FROM users WHERE id = '${id}'`, (error, result) => {
         if (error) return reject(error.message);
         const dataUser = result.rows[0];
-        const userID = result.rows[0].id;
+        const userID = result?.rows[0]?.id;
         db.query(
           `SELECT * FROM history WHERE user_id = '${userID}'`,
           (errorHistory, resultHistory) => {

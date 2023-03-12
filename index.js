@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 const router = require("./src/routes/index");
-// const cors = require("cors");
+const cors = require("cors");
 const { urlencoded, json } = require("body-parser");
 
 // static file
@@ -15,17 +15,17 @@ app.use(urlencoded({ extended: true }));
 // menerima json
 app.use(json());
 // app.use(bodyParser.json());
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+//   );
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   next();
+// });
 // CORS
-// app.use(cors());
+app.use(cors());
 // app.use(
 //   cors({
 //     origin: `http://localhost:3000/`,

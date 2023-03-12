@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://hellojobb.vercel.app/">
-    <img src="https://kopiku.cyclic.app/uploads/images/coffe-logo.webp" alt="Kopiku" width="80" height="80">
+    <img src="https://kopiku.up.railway.app/images/coffe-logo.webp" alt="Kopiku" width="80" height="80">
   </a>
 
   <h3 align="center">Kopiku Backend App</h3>
@@ -53,9 +53,16 @@
 * [![Express][Express.js]][Express-url]
 * [![Supabase][Supabase]][Supabase-url]
 * [![Cyclic][Cyclic]][Cyclic-url]
+* [![Railway][Railway]][Railway-url]
 * [![Vercel][Vercel]][Vercel-url]
 * [![PostgreSQL][PostgreSQL]][PostgreSQL-url]
 * [![Postman][Postman]][Postman-url]
+
+
+### Database Schema
+
+[![Kopiku Database Schema][kopiku-db-schema]](https://kopikuu.vercel.app/)
+
 
 <p align="right">(<a href="#kopiku-top">back to top</a>)</p>
 
@@ -104,7 +111,8 @@ Project Link: [https://github.com/MaulanaRhezaArdiansyah/kopiku-backend](https:/
 
 
 <!-- LINKS -->
-[product-screenshot]: https://kopiku.cyclic.app/uploads/images/kopiku-landing.png
+[product-screenshot]: https://kopiku.up.railway.app/images/kopiku-landing.png
+[kopiku-db-schema]: https://kopiku.up.railway.app/images/kopiku-db-schema.png
 [React.js]: https://img.shields.io/badge/React.js-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Express.js]: https://img.shields.io/badge/Express.js-20232A?style=for-the-badge&logo=express&logoColor=61DAFB
@@ -113,6 +121,8 @@ Project Link: [https://github.com/MaulanaRhezaArdiansyah/kopiku-backend](https:/
 [Supabase-url]: https://supabase.com/
 [Cyclic]: https://img.shields.io/badge/Cyclic.sh-20232A?style=for-the-badge&logo=cyclic.sh&logoColor=61DAFB
 [Cyclic-url]: http://www.cyclic.sh/
+[Railway]: https://img.shields.io/badge/Railway-20232A?style=for-the-badge&logo=railway&logoColor=61DAFB
+[Railway-url]: http://www.railway.app/
 [Vercel]: https://img.shields.io/badge/Vercel-20232A?style=for-the-badge&logo=vercel&logoColor=61DAFB
 [Vercel-url]: https://vercel.com/
 [PostgreSQL]: https://img.shields.io/badge/PostgreSQL-20232A?style=for-the-badge&logo=postgresql&logoColor=61DAFB

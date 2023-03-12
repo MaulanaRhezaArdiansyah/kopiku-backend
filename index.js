@@ -8,7 +8,8 @@ const cors = require("cors");
 const { urlencoded, json } = require("body-parser");
 
 // static file
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use(express.static("public/uploads"));
 // menerima application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }));
 // app.use(bodyParser.urlencoded({ extended: true }));

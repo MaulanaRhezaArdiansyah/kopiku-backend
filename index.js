@@ -21,7 +21,7 @@ app.use(json());
 // app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://kopiku.cyclic.app");
+  res.setHeader("Access-Control-Allow-Origin", "https://kopikuu.vercel.app/");
   next();
 });
 

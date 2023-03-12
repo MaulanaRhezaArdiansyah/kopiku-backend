@@ -20,17 +20,17 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 // app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://kopiku.cyclic.app");
+  next();
+});
+
 // CORS
 app.use(cors());
 
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-//   next();
-// });
-
 // app.use(
 //   cors({
-//     origin: `http://localhost:3000/`,
+//     origin: `http://localhost:3000/`
 //   })
 // );
 

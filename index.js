@@ -20,12 +20,12 @@ app.use(json());
 //   next();
 // });
 // CORS
-// app.use(cors());
-app.use(
-  cors({
-    origin: `http://localhost:3000/`,
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: `http://localhost:3000/`,
+//   })
+// );
 
 // Parent Route
 app.use("/api/v1", router);

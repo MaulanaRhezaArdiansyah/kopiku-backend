@@ -16,23 +16,23 @@ app.use(urlencoded({ extended: true }));
 // menerima json
 app.use(json());
 // app.use(bodyParser.json());
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+//   );
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   next();
+// });
 // CORS
-app.use(cors());
-// app.use(
-//   cors({
-//     // origin: `http://localhost:3000/`,
-//     origin: `https://kopikuu.vercel.app/`,
-//   })
-// );
+// app.use(cors());
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://kopikuu.vercel.app"],
+  allowHeaders: ["x-access-token", "content-type"],
+  methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
+};
+app.use(cors(corsOptions));
 
 // Parent Route
 app.use("/api/v1", router);

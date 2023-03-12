@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 const router = require("./src/routes/index");
-const cors = require("cors");
+// const cors = require("cors");
 const { urlencoded, json } = require("body-parser");
 
 // static file
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 // CORS
-app.use(cors());
+// app.use(cors());
 // app.use(
 //   cors({
 //     origin: `http://localhost:3000/`,

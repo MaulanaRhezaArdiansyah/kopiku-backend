@@ -61,7 +61,7 @@
 
 ### Database Schema
 
-[![Kopiku Database Schema][kopiku-db-schema]](https://kopikuu.vercel.app/)
+[![Kopiku Database Schema][kopiku-db-schema]](https://drawsql.app/teams/me-410/diagrams/kopiku-app/)
 
 
 <p align="right">(<a href="#kopiku-top">back to top</a>)</p>

@@ -102,19 +102,6 @@ const usersController = {
       id: req.params.id,
       file: req.file,
     };
-    // let extFile = path.extname(request.file.originalname);
-    // if (
-    //   extFile !== ".jpg" &&
-    //   extFile !== ".jpeg" &&
-    //   extFile !== ".webp" &&
-    //   extFile !== ".png"
-    // )
-    //   return formResponse(
-    //     400,
-    //     request.file.filename,
-    //     `Ooops, avatar upload should be an image format!`,
-    //     res
-    //   );
     console.log(request);
     return usersModel
       .updateByPatch(request)

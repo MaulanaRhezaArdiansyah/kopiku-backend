@@ -15,19 +15,22 @@ app.use(urlencoded({ extended: true }));
 // menerima json
 app.use(json());
 // app.use(bodyParser.json());
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "https://kopikuu.vercel.app/");
-//   next();
-// });
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 // CORS
-// app.use(cors());
-app.use(
-  cors({
-    origin: `https://kopiku.cyclic.app/`,
-    methods: "GET, POST, PATCH, DELETE, PUT",
-    // origin: `http://localhost:3000/`,
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: `http://localhost:3000/`,
+//   })
+// );
 
 // Parent Route
 app.use("/api/v1", router);

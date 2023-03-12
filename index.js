@@ -6,7 +6,7 @@ const port = process.env.PORT || 3001;
 const router = require("./src/routes/index");
 const cors = require("cors");
 const { urlencoded, json } = require("body-parser");
-
+app.use(cors());
 // static file
 // app.use(express.static("public"));
 app.use(express.static("public/uploads"));
@@ -27,12 +27,12 @@ app.use(json());
 // });
 // CORS
 // app.use(cors());
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://kopikuu.vercel.app"],
-  allowHeaders: ["x-access-token", "content-type"],
-  methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: ["http://localhost:3000", "https://kopikuu.vercel.app"],
+//   allowHeaders: ["x-access-token", "content-type"],
+//   methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
+// };
+// app.use(cors(corsOptions));
 
 // Parent Route
 app.use("/api/v1", router);

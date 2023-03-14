@@ -47,7 +47,7 @@
 <!-- PROJECT -->
 ## Project Link
 * Github Repo : [https://github.com/MaulanaRhezaArdiansyah/kopiku](https://github.com/MaulanaRhezaArdiansyah/kopiku)
-* Frontend Deployment : 
+* Frontend Deployment : https://kopikuu.vercel.app/
 * Backend Deployment : https://kopiku.cyclic.app/api/v1
 
 <p align="right">(<a href="#kopiku-top">back to top</a>)</p>

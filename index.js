@@ -1,4 +1,4 @@
-// CONFIG ENV KUDU PALING ATAS COYYYYYY
+// CONFIG ENV KUDU PALING ATAS COYY
 require("dotenv").config();
 const express = require("express");
 const app = express();
